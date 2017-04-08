@@ -1,0 +1,7 @@
+[run]
+branch = True
+source = openprescribing,frontend,api,common
+omit = */tests/*,*/migrations/*
+
+[report]
+show_missing = True
