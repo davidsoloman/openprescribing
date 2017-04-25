@@ -42,11 +42,11 @@
     },
     {
         "id": "ccg_boundaries",
-        "title": "Boundaries of CCGs in KML format",
+        "title": "Boundaries of CCGs in mapinfo format",
         "publisher": "NHS England",
         "publication_schedule": "irregular (less than yealy)",
         "index_url": "http://www.england.nhs.uk/resources/ccg-maps/",
-        "notes": "We currently use the ONS's version, correct as of Feb 2013. There is a more recent version from PHE of April 2015, but it doesn't import correctly with the current importer script",
+        "notes": "Currently using version as of 2015",
         "core_data": true
     },
     {
