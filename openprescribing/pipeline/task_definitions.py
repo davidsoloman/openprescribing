@@ -172,7 +172,7 @@ class ImportHscicPractices(TaskDefinition):
 
 
 class ConvertHscicPrescriptions(TaskDefinition):
-    task_type = 'importer'
+    task_type = 'other'
     source = 'prescribing'
     dependencies = [
         FetchPrescribing,
