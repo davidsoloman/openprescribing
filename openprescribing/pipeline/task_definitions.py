@@ -223,66 +223,18 @@ class ImportPatientListSize(TaskDefinition):
         '''import_list_sizes --filename patient_list_size_new.csv'''
 
 
-class BQUploadBnfCodes(TaskDefinition):
-    task_type = 'bq_uploader'
+class UploadToBigquery(TaskDefinition):
+    task_type = 'other'
     dependencies = [
-        ImportBnfCodes,
-    ]
-
-    def run(self):
-        '''BigQueryUploader().update_bnf_table()'''
-
-
-class BQUploadPractices(TaskDefinition):
-    task_type = 'bq_uploader'
-    dependencies = [
+        ImportPatientListSize,
         ImportHscicPractices,
+        ImportPrescriptions,  # Not sure whether this is a dependency
+        ImportCcgDetails,
         ImportPracticeDetails,
     ]
 
     def run(self):
-        '''bigquery.load_data_from_pg('hscic', 'practices', 'frontend_practice', bigquery.PRACTICE_SCHEMA)'''
-
-
-class BQUploadPresentations(TaskDefinition):
-    task_type = 'bq_uploader'
-    dependencies = [
-        ImportBnfCodes,
-    ]
-
-    def run(self):
-        '''bigquery.load_presentation_from_pg()'''
-
-
-class BQUploadPracticeStatistics(TaskDefinition):
-    task_type = 'bq_uploader'
-    dependencies = [
-        ImportPatientListSize,
-    ]
-
-    def run(self):
-        '''bigquery.load_statistics_from_pg()'''
-
-
-class BQUploadCcgs(TaskDefinition):
-    task_type = 'bq_uploader'
-    dependencies = [
-        ImportCcgDetails,
-    ]
-
-    def run(self):
-        '''bigquery.load_ccgs_from_pg()'''
-
-
-class GeneratePresentationReplacements(TaskDefinition):
-    task_type = 'other'
-    dependencies = [
-        BQUploadBnfCodes,
-        # Possibly others
-    ]
-
-    def run(self):
-        pass
+        '''runner:bigquery_upload'''
 
 
 class ImportMeasureDefinitions(TaskDefinition):
@@ -300,11 +252,7 @@ class ImportMeasureDefinitions(TaskDefinition):
 class ImportMeasures(TaskDefinition):
     task_type = 'other'
     dependencies = [
-        GeneratePresentationReplacements,
-        BQUploadCcgs,
-        BQUploadPractices,
-        BQUploadPresentations,
-        BQUploadPracticeStatistics,
+        UploadToBigquery,
         ImportMeasureDefinitions,
     ]
 
@@ -315,8 +263,7 @@ class ImportMeasures(TaskDefinition):
 class RefreshViews(TaskDefinition):
     task_type = 'other'
     dependencies = [
-        GeneratePresentationReplacements,
-        BQUploadPracticeStatistics,
+        UploadToBigquery,
     ]
 
     def run(self):
