@@ -51,6 +51,7 @@ for raw_source in raw_sources:
 
     sources.append(source)
 
+sources.sort(key=lambda source: source['id'])
 
 with open('data/sources.json', 'w') as f:
     json.dump(sources, f, indent=4)
