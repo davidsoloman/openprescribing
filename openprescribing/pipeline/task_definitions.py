@@ -1,4 +1,4 @@
-class TaskDefinition(object): pass
+from task_base import TaskDefinition
 
 
 class FetchBnfCodes(TaskDefinition):
