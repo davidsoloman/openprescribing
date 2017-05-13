@@ -3,27 +3,27 @@ from task_base import TaskDefinition
 
 class FetchBnfCodes(TaskDefinition):
     task_type = 'manual_fetcher'
-    source = 'bnf_codes'
+    source_id = 'bnf_codes'
 
 
 class FetchAdqs(TaskDefinition):
     task_type = 'manual_fetcher'
-    source = 'adqs'
+    source_id = 'adqs'
 
 
 class FetchCcgBoundaries(TaskDefinition):
     task_type = 'manual_fetcher'
-    source = 'ccg_boundaries'
+    source_id = 'ccg_boundaries'
 
 
 class FetchPatientListWeightings(TaskDefinition):
     task_type = 'manual_fetcher'
-    source = 'patient_list_weightings'
+    source_id = 'patient_list_weightings'
 
 
 class FetchPatientListSize(TaskDefinition):
     task_type = 'fetcher'
-    source = 'patient_list_size'
+    source_id = 'patient_list_size'
 
     def run(self):
         '''hscic_list_sizes.py'''
@@ -31,7 +31,7 @@ class FetchPatientListSize(TaskDefinition):
 
 class FetchCcgDetails(TaskDefinition):
     task_type = 'fetcher'
-    source = 'ccg_details'
+    source_id = 'ccg_details'
 
     def run(self):
         '''org_codes.py --ccg'''
@@ -39,7 +39,7 @@ class FetchCcgDetails(TaskDefinition):
 
 class FetchPracticeDetails(TaskDefinition):
     task_type = 'fetcher'
-    source = 'practice_details'
+    source_id = 'practice_details'
 
     def run(self):
         '''org_codes.py --practice'''
@@ -47,7 +47,7 @@ class FetchPracticeDetails(TaskDefinition):
 
 class ImportBnfCodes(TaskDefinition):
     task_type = 'importer'
-    source = 'bnf_codes'
+    source_id = 'bnf_codes'
     dependencies = [
         FetchBnfCodes,
     ]
@@ -58,7 +58,7 @@ class ImportBnfCodes(TaskDefinition):
 
 class ImportCcgBoundaries(TaskDefinition):
     task_type = 'importer'
-    source = 'ccg_boundaries'
+    source_id = 'ccg_boundaries'
     dependencies = [
         FetchCcgBoundaries,
     ]
@@ -69,7 +69,7 @@ class ImportCcgBoundaries(TaskDefinition):
 
 class ImportCcgDetails(TaskDefinition):
     task_type = 'importer'
-    source = 'ccg_details'
+    source_id = 'ccg_details'
     dependencies = [
         FetchCcgDetails,
         ImportCcgBoundaries,
@@ -81,7 +81,7 @@ class ImportCcgDetails(TaskDefinition):
 
 class FetchPrescribingMetadata(TaskDefinition):
     task_type = 'fetcher'
-    source = 'prescribing_metadata'
+    source_id = 'prescribing_metadata'
 
     def run(self):
         '''hscic_prescribing.py --most_recent_date'''
@@ -89,12 +89,12 @@ class FetchPrescribingMetadata(TaskDefinition):
 
 class FetchPrescribing(TaskDefinition):
     task_type = 'manual_fetcher'
-    source = 'prescribing'
+    source_id = 'prescribing'
 
 
 class ImportAdqs(TaskDefinition):
     task_type = 'importer'
-    source = 'adqs'
+    source_id = 'adqs'
     dependencies = [
         FetchAdqs,
         ImportBnfCodes,
@@ -106,7 +106,7 @@ class ImportAdqs(TaskDefinition):
 
 class ImportPatientListWeightings(TaskDefinition):
     task_type = 'importer'
-    source = 'patient_list_weightings'
+    source_id = 'patient_list_weightings'
     dependencies = [
         FetchPatientListWeightings,
     ]
@@ -117,7 +117,7 @@ class ImportPatientListWeightings(TaskDefinition):
 
 class ImportPracticeDetails(TaskDefinition):
     task_type = 'importer'
-    source = 'practice_details'
+    source_id = 'practice_details'
     dependencies = [
         FetchPracticeDetails,
         ImportCcgDetails,
@@ -129,7 +129,7 @@ class ImportPracticeDetails(TaskDefinition):
 
 class FetchNhsPostcodeFile(TaskDefinition):
     task_type = 'fetcher'
-    source = 'nhs_postcode_file'
+    source_id = 'nhs_postcode_file'
 
     def run(self):
         '''org_codes.py --postcode'''
@@ -137,7 +137,7 @@ class FetchNhsPostcodeFile(TaskDefinition):
 
 class ImportNhsPostcodeFile(TaskDefinition):
     task_type = 'importer'
-    source = 'nhs_postcode_file'
+    source_id = 'nhs_postcode_file'
     dependencies = [
         FetchNhsPostcodeFile,
         ImportPracticeDetails,
@@ -149,7 +149,7 @@ class ImportNhsPostcodeFile(TaskDefinition):
 
 class ImportHscicChemicals(TaskDefinition):
     task_type = 'importer'
-    source = 'prescribing_metadata'
+    source_id = 'prescribing_metadata'
     dependencies = [
         FetchPrescribingMetadata,
     ]
@@ -160,7 +160,7 @@ class ImportHscicChemicals(TaskDefinition):
 
 class ImportHscicPractices(TaskDefinition):
     task_type = 'importer'
-    source = 'prescribing_metadata'
+    source_id = 'prescribing_metadata'
     dependencies = [
         FetchPrescribingMetadata,
         ImportCcgDetails,
@@ -173,7 +173,7 @@ class ImportHscicPractices(TaskDefinition):
 
 class ConvertHscicPrescriptions(TaskDefinition):
     task_type = 'other'
-    source = 'prescribing'
+    source_id = 'prescribing'
     dependencies = [
         FetchPrescribing,
     ]
@@ -184,7 +184,7 @@ class ConvertHscicPrescriptions(TaskDefinition):
 
 class ImportPrescriptions(TaskDefinition):
     task_type = 'importer'
-    source = 'prescribing'
+    source_id = 'prescribing'
     dependencies = [
         ImportHscicPractices,
         ConvertHscicPrescriptions,
@@ -199,7 +199,7 @@ class ImportPrescriptions(TaskDefinition):
 
 class ImportDispensingPractices(TaskDefinition):
     task_type = 'importer'
-    source = 'dispensing_practices'
+    source_id = 'dispensing_practices'
     dependencies = [
         ImportHscicPractices,
         ImportPracticeDetails,
@@ -211,7 +211,7 @@ class ImportDispensingPractices(TaskDefinition):
 
 class ImportPatientListSize(TaskDefinition):
     task_type = 'importer'
-    source = 'patient_list_size'
+    source_id = 'patient_list_size'
     dependencies = [
         FetchPatientListSize,
         ImportHscicPractices,
