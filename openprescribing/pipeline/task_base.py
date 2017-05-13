@@ -1,5 +1,7 @@
 import networkx as nx
 
+from django.core.management import call_command
+
 from models import Source
 from ordered_digraph import OrderedDiGraph
 
@@ -11,6 +13,8 @@ class TaskDefinitionMetaclass(type):
                 attrs['source'] = Source.objects.get(id=attrs['source_id'])
             except Source.DoesNotExist:
                 raise RuntimeError('Task {} has source_id {} but no such source was found'.format(name, attrs['source_id']))
+        if 'fetch_command' in attrs and 'fetch_command_args' not in attrs:
+            attrs['fetch_command_args'] = []
         return type.__new__(mcs, name, bases, attrs)
 
 
@@ -48,3 +52,8 @@ class TaskDefinition(object):
 class ManualFetcher(TaskDefinition):
     def prompt_for_manual_download(self, year_and_month):
         self.source.prompt_for_manual_download(year_and_month)
+
+
+class AutoFetcher(TaskDefinition):
+    def fetch(self):
+        call_command(self.fetch_command, *self.fetch_command_args)

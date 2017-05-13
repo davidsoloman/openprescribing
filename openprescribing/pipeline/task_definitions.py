@@ -1,4 +1,4 @@
-from task_base import ManualFetcher, TaskDefinition
+from task_base import AutoFetcher, ManualFetcher, TaskDefinition
 
 
 class FetchBnfCodes(ManualFetcher):
@@ -17,28 +17,21 @@ class FetchPatientListWeightings(ManualFetcher):
     source_id = 'patient_list_weightings'
 
 
-class FetchPatientListSize(TaskDefinition):
-    task_type = 'fetcher'
+class FetchPatientListSize(AutoFetcher):
     source_id = 'patient_list_size'
-
-    def run(self):
-        '''hscic_list_sizes.py'''
+    fetch_command = 'hscic_list_sizes'
 
 
-class FetchCcgDetails(TaskDefinition):
-    task_type = 'fetcher'
+class FetchCcgDetails(AutoFetcher):
     source_id = 'ccg_details'
+    fetch_command = 'org_codes'
+    fetch_command_args = ['--ccg']
 
-    def run(self):
-        '''org_codes.py --ccg'''
 
-
-class FetchPracticeDetails(TaskDefinition):
-    task_type = 'fetcher'
+class FetchPracticeDetails(AutoFetcher):
     source_id = 'practice_details'
-
-    def run(self):
-        '''org_codes.py --practice'''
+    fetch_command = 'org_codes'
+    fetch_command_args = ['--practice']
 
 
 class ImportBnfCodes(TaskDefinition):
@@ -75,12 +68,10 @@ class ImportCcgDetails(TaskDefinition):
         '''import_org_names --ccg eccg.csv'''
 
 
-class FetchPrescribingMetadata(TaskDefinition):
-    task_type = 'fetcher'
+class FetchPrescribingMetadata(AutoFetcher):
     source_id = 'prescribing_metadata'
-
-    def run(self):
-        '''hscic_prescribing.py --most_recent_date'''
+    fetch_command = 'hscic_prescribing'
+    fetch_command_args = ['--most_recent_date']
 
 
 class FetchPrescribing(ManualFetcher):
@@ -122,12 +113,10 @@ class ImportPracticeDetails(TaskDefinition):
         '''import_practices --epraccur epraccur.csv'''
 
 
-class FetchNhsPostcodeFile(TaskDefinition):
-    task_type = 'fetcher'
+class FetchNhsPostcodeFile(AutoFetcher):
     source_id = 'nhs_postcode_file'
-
-    def run(self):
-        '''org_codes.py --postcode'''
+    fetch_command = 'org_codes'
+    fetch_command_args = ['--postcode']
 
 
 class ImportNhsPostcodeFile(TaskDefinition):
