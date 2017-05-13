@@ -75,3 +75,6 @@ GRAB_HOST = "http://localhost"
 
 # This is the same as the dev/local one
 GOOGLE_TRACKING_ID = 'UA-62480003-2'
+
+# Path to log file that tracks imports
+IMPORT_LOG_PATH = os.path.join(SITE_ROOT, 'pipeline', 'test-data', 'logs', 'log.json')

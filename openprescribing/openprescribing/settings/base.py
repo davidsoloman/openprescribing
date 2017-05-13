@@ -1,5 +1,5 @@
 """Common settings and globals."""
-from os import environ
+import os
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 from django.core.exceptions import ImproperlyConfigured
@@ -328,6 +328,9 @@ BQ_PRESCRIBING_TABLE_NAME = "normalised_prescribing_legacy"
 BQ_PRACTICES_TABLE_NAME = "practices"
 BQ_FULL_PRACTICES_TABLE_NAME = "[%s:hscic.%s]" % (
     BQ_PROJECT, BQ_PRACTICES_TABLE_NAME)
+
+DATA_BASEDIR = os.getenv('OPENP_DATA_BASEDIR', '/tmp')  # TODO fix this
+IMPORT_LOG_PATH = os.path.join(DATA_BASEDIR, 'log.json')
 
 # Use django-anymail through mailgun for sending emails
 EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"
