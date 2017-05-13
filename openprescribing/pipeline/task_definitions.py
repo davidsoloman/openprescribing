@@ -1,23 +1,19 @@
-from task_base import TaskDefinition
+from task_base import ManualFetcher, TaskDefinition
 
 
-class FetchBnfCodes(TaskDefinition):
-    task_type = 'manual_fetcher'
+class FetchBnfCodes(ManualFetcher):
     source_id = 'bnf_codes'
 
 
-class FetchAdqs(TaskDefinition):
-    task_type = 'manual_fetcher'
+class FetchAdqs(ManualFetcher):
     source_id = 'adqs'
 
 
-class FetchCcgBoundaries(TaskDefinition):
-    task_type = 'manual_fetcher'
+class FetchCcgBoundaries(ManualFetcher):
     source_id = 'ccg_boundaries'
 
 
-class FetchPatientListWeightings(TaskDefinition):
-    task_type = 'manual_fetcher'
+class FetchPatientListWeightings(ManualFetcher):
     source_id = 'patient_list_weightings'
 
 
@@ -87,8 +83,7 @@ class FetchPrescribingMetadata(TaskDefinition):
         '''hscic_prescribing.py --most_recent_date'''
 
 
-class FetchPrescribing(TaskDefinition):
-    task_type = 'manual_fetcher'
+class FetchPrescribing(ManualFetcher):
     source_id = 'prescribing'
 
 

@@ -1,7 +1,6 @@
-from task_definitions import TaskDefinition
+from task_definitions import ManualFetcher, TaskDefinition
 
 
 def prompt_manual_data():
-    for task_definition in TaskDefinition.ordered_task_definitions():
-        print task_definition.__name__
-        print getattr(task_definition, 'source', None)
+    for task_definition in ManualFetcher.ordered_task_definitions():
+        task_definition().prompt_for_manual_download()

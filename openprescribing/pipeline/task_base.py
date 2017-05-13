@@ -43,3 +43,8 @@ class TaskDefinition(object):
         for v in vars(module).values():
             if isinstance(v, type) and v != cls and issubclass(v, cls):
                 yield v
+
+
+class ManualFetcher(TaskDefinition):
+    def prompt_for_manual_download(self):
+        print self.source
