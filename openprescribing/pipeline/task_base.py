@@ -18,31 +18,31 @@ class TaskDefinition(object):
     __metaclass__ = TaskDefinitionMetaclass
 
     @classmethod
-    def ordered_task_definitions(cls, module=None):
+    def ordered_tasks(cls, module=None):
         if module is None:
             import importlib
             module = importlib.import_module('pipeline.task_definitions')
 
         graph = OrderedDiGraph()
 
-        for task_definition in cls.task_definitions(module):
-            graph.add_node(task_definition)
-            if hasattr(task_definition, 'dependencies'):
-                for dependency in task_definition.dependencies:
-                    graph.add_edge(dependency, task_definition)
+        for task in cls.tasks(module):
+            graph.add_node(task)
+            if hasattr(task, 'dependencies'):
+                for dependency in task.dependencies:
+                    graph.add_edge(dependency, task)
 
         for task in nx.topological_sort(graph):
             yield task
 
     @classmethod
-    def task_definitions(cls, module=None):
+    def tasks(cls, module=None):
         if module is None:
             import importlib
             module = importlib.import_module('pipeline.task_definitions')
 
         for v in vars(module).values():
             if isinstance(v, type) and v != cls and issubclass(v, cls):
-                yield v
+                yield v()
 
 
 class ManualFetcher(TaskDefinition):
