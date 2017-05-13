@@ -20,3 +20,4 @@ class Source(models.Model):
     licence_attributions = ArrayField(models.CharField(max_length=200), null=True)
     core_data = models.BooleanField(default=False)
     research = models.BooleanField(default=False)
+    file_patterns = ArrayField(models.CharField(max_length=200))

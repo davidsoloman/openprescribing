@@ -8,7 +8,10 @@
             "2013": "http://www.hscic.gov.uk/media/9376/Average-daily-quantity-ADQ-values-2012-13/pdf/adqs_2012_13.pdf"
         },
         "notes": "Source is data provided privately by HSCIC, extracted from ePACT in April 2016. Not all presentations are included. Their ref NIC-23748-Q0D1L enquiries@hscic.gov.uk. We should refresh this approx yearly.",
-        "core_data": true
+        "core_data": true,
+        "file_patterns": [
+            "adqs_.*csv"
+        ]
     },
     {
         "id": "bnf_codes",
@@ -19,7 +22,10 @@
         "index_url": "https://apps.nhsbsa.nhs.uk/infosystems/data/showDataSelector.do?reportId=126",
         "notes": "We currently use a version that is correct as of Jan 2016; we should probably be importing this quarterly or so. There are monthly changes but not that many.",
         "requires_captcha": true,
-        "core_data": true
+        "core_data": true,
+        "file_patterns": [
+            "bnf_codes.csv"
+        ]
     },
     {
         "id": "ccg_boundaries",
@@ -28,7 +34,10 @@
         "publication_schedule": "irregular (less than yealy)",
         "index_url": "http://www.england.nhs.uk/resources/ccg-maps/",
         "notes": "Currently using version as of 2015",
-        "core_data": true
+        "core_data": true,
+        "file_patterns": [
+            "ccg_boundaries.*\\.kml"
+        ]
     },
     {
         "id": "ccg_details",
@@ -38,7 +47,10 @@
         "publication_schedule": "end of each month",
         "index_url": "http://systems.hscic.gov.uk/data/ods/datadownloads/othernhs/index_html",
         "notes": "Quarterly and monthly diffs are also available",
-        "core_data": true
+        "core_data": true,
+        "file_patterns": [
+            "eccg.csv"
+        ]
     },
     {
         "id": "dispensing_practices",
@@ -47,7 +59,10 @@
         "publisher": "NHS Business Services Authority",
         "publication_schedule": "quarterly",
         "index_url": "https://apps.nhsbsa.nhs.uk/infosystems/report/viewReportList.do?reportMenuItemId=211",
-        "requires_captcha": true
+        "requires_captcha": true,
+        "file_patterns": [
+            "dispensing_practices.*\\.csv"
+        ]
     },
     {
         "id": "nhs_payments_to_general_practice",
@@ -76,7 +91,10 @@
             "Contains Royal Mail data \u00a9 Royal Mail copyright and Database right <year>",
             "Contains National Statistics data \u00a9 Crown copyright and database right <year>"
         ],
-        "core_data": true
+        "core_data": true,
+        "file_patterns": [
+            "gridall\\.csv"
+        ]
     },
     {
         "id": "patient_list_size",
@@ -86,7 +104,10 @@
         "publication_lag": "2 to 3 weeks",
         "index_url": "https://apps.nhsbsa.nhs.uk/infosystems/data/showDataSelector.do?reportId=128",
         "notes": "The data doesn't contain date stamps, so we rely on the correct datestamping of the containing folder to verify the validity of the data. For example, if a CSV is valid for Jan - March 2016, then it should be placed in a folder like `2016_03/patient_list_size_new.csv`",
-        "core_data": true
+        "core_data": true,
+        "file_patterns": [
+            "patient_list_size_new.csv"
+        ]
     },
     {
         "id": "patient_list_weightings",
@@ -96,7 +117,10 @@
         "publication_schedule": "Twice ever (2009 and 2013)",
         "index_url": "http://www.hscic.gov.uk/prescribing/measures",
         "notes": "The importer actually dumps values to JSON, rather than importing. This json is then saved to the PracticeStatistics model whenever tha model is saved, which in practice is whenever the `import_list_sizes` importer is run.",
-        "core_data": true
+        "core_data": true,
+        "file_patterns": [
+            "prescribing_units.xlsx"
+        ]
     },
     {
         "id": "practice_details",
@@ -106,7 +130,10 @@
         "publication_schedule": "end of each month",
         "index_url": "http://systems.hscic.gov.uk/data/ods/datadownloads/gppractice/index_html",
         "notes": "Quarterly and monthly diffs are also available",
-        "core_data": true
+        "core_data": true,
+        "file_patterns": [
+            "epraccur.csv"
+        ]
     },
     {
         "id": "prescribing",
@@ -116,7 +143,11 @@
         "publication_schedule": "middle of each month",
         "publication_lag": "60 days",
         "index_url": "https://apps.nhsbsa.nhs.uk/infosystems/data/showDataSelector.do?reportId=124",
-        "core_data": true
+        "core_data": true,
+        "file_patterns": [
+            ".*Detailed_Prescribing_Information.csv",
+            ".*Detailed_Prescribing_Information_formatted.CSV"
+        ]
     },
     {
         "id": "prescribing_metadata",
@@ -126,7 +157,11 @@
         "publication_schedule": "end of each month",
         "publication_lag": "80 - 100 days",
         "index_url": "http://content.digital.nhs.uk/article/2021/Website-Search?q=presentation+level+data&go=Go&area=both",
-        "core_data": true
+        "core_data": true,
+        "file_patterns": [
+            "T\\d+CHEM.*\\.CSV",
+            "T\\d+ADDR.*\\.CSV"
+        ]
     },
     {
         "id": "qof",
