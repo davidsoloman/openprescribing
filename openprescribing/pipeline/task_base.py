@@ -46,5 +46,5 @@ class TaskDefinition(object):
 
 
 class ManualFetcher(TaskDefinition):
-    def prompt_for_manual_download(self):
-        print self.source
+    def prompt_for_manual_download(self, year_and_month):
+        self.source.prompt_for_manual_download(year_and_month)
