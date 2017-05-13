@@ -1,5 +1,3 @@
-from operator import attrgetter
-
 import networkx as nx
 
 from models import Source
