@@ -34,8 +34,7 @@ class Source(models.Model):
         return self.id
 
     def prompt_for_manual_download(self, year_and_month):
-        expected_location = '%s/%s/%s' % (
-            settings.DATA_BASEDIR, self.id, year_and_month)
+        expected_location = os.path.join(self.data_dir(), year_and_month)
 
         print('~' * 80)
         print('You should now locate latest data for %s, if available' % self.id)
@@ -63,3 +62,15 @@ class Source(models.Model):
             else:
                 print('    [never imported]')
         raw_input('Press return when done, or to skip this step')
+
+    def fetched_paths(self, file_pattern):
+        '''Returns list of paths to fetched files for source'''
+        paths = glob.glob("%s/*/*" % self.data_dir())
+
+        candidates = filter(
+            lambda x: re.findall(file_pattern, x),
+            files)
+        return sorted(candidates)
+
+    def data_dir(self):
+        return os.path.join(settings.DATA_BASEDIR, self.id)

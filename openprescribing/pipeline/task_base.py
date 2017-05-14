@@ -57,3 +57,15 @@ class ManualFetcher(TaskDefinition):
 class AutoFetcher(TaskDefinition):
     def fetch(self):
         call_command(self.fetch_command, *self.fetch_command_args)
+
+
+class Converter(TaskDefinition):
+    pass
+
+
+class Importer(TaskDefinition):
+    pass
+
+
+class PostProcessor(TaskDefinition):
+    pass
